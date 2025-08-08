@@ -36,7 +36,7 @@ jobs:
       - uses: helm/kind-action@v1.9.0
         with:
           cluster_name: ci
-          wait: true
+          wait: 120s
       - name: Install NGINX Ingress
         run: |
           kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.10.1/deploy/static/provider/kind/deploy.yaml
