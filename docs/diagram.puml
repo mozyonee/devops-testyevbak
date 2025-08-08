@@ -1,0 +1,8 @@
+@startuml
+actor User
+User -> Ingress: HTTP Request
+Ingress -> NestJS: Forward to app
+NestJS -> Redis: Query/Store Data
+Redis --> NestJS: Response
+NestJS --> User: JSON {"status": true/false}
+@enduml
