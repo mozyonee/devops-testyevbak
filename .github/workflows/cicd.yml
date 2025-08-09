@@ -37,7 +37,7 @@ jobs:
         run: |
           kubectl cluster-info
           kubectl get nodes
-      - name: Install NGINX Ingress (if needed)
+      - name: Install NGINX Ingress (if needed1)
         run: |
           if ! kubectl get namespace ingress-nginx >/dev/null 2>&1; then
             echo "Installing NGINX Ingress..."
