@@ -39,7 +39,7 @@ jobs:
           wait: 120s
       - name: Install NGINX Ingress
         run: |
-          kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.10.1/deploy/static/provider/kind/deploy.yaml
+          kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.10.1/deploy/static/provider/cloud/deploy.yaml
           kubectl -n ingress-nginx rollout status deploy/ingress-nginx-controller --timeout=180s
       - name: Apply manifests
         run: |
