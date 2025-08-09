@@ -51,7 +51,7 @@ jobs:
         env:
           IMAGE: ${{ env.IMAGE }}
         run: |
-          kubectl -n mustage set image deploy/nest-app nest-app=$IMAGE
+          kubectl -n mustage set image deploy/nest-app app=$IMAGE
           kubectl -n mustage rollout status deploy/nest-app --timeout=180s
       - name: Debug NGINX Ingress
         if: failure()
