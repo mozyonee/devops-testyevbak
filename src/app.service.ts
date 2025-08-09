@@ -5,9 +5,9 @@ import { RedisService } from './redis/redis.service';
 export class AppService {
 	private readonly logger = new Logger(AppService.name);
 	constructor(private readonly redisService: RedisService) { }
-	
+
 	getHello(): string {
-		return 'Hello World!';
+		return 'Updated string!';
 	}
 
 	async checkRedisHealth(): Promise<{ status: boolean; message?: string; }> {
