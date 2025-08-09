@@ -37,7 +37,7 @@ jobs:
         run: |
           mkdir -p ~/.kube
       
-          kind export kubeconfig --name adaptrix-cluster --kubeconfig ~/.kube/config
+          sudo -u adaptrix bash -c "kubectl config view --raw" > ~/.kube/config
           chmod 600 ~/.kube/config
 
           whoami
