@@ -17,8 +17,8 @@ spec:
     spec:
       containers:
         - name: app
-          image: devops-test:latest
-          imagePullPolicy: Never
+          image: ghcr.io/mozyonee/devops-test:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 3000
           envFrom:
