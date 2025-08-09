@@ -33,21 +33,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install NGINX Ingress if needed
+      - name: Verify cluster connection
+        run: |
+          kubectl cluster-info
+          kubectl get nodes
+      - name: Install NGINX Ingress (if needed)
         run: |
           if ! kubectl get namespace ingress-nginx >/dev/null 2>&1; then
             echo "Installing NGINX Ingress..."
-            kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.10.1/deploy/static/provider/cloud/deploy.yaml
+            kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.10.1/deploy/static/provider/kind/deploy.yaml
             kubectl -n ingress-nginx rollout status deploy/ingress-nginx-controller --timeout=180s
           else
-            echo "NGINX Ingress already installed, skipping..."
+            echo "NGINX Ingress already installed"
           fi
       - name: Apply manifests
         run: |
           kubectl apply -f k8s/namespace.yaml
           kubectl -n mustage apply -f k8s/redis-secret.yaml -f k8s/redis-deployment.yaml -f k8s/redis-service.yaml
           kubectl -n mustage apply -f k8s/app-config.yaml -f k8s/app-deployment.yaml -f k8s/app-service.yaml
-          kubectl -n mustage apply -f k8s/ingress.yaml || true
+          kubectl -n mustage apply -f k8s/ingress.yaml
       - name: Patch image and rollout
         env:
           IMAGE: ${{ env.IMAGE }}
