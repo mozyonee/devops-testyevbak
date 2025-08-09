@@ -39,7 +39,6 @@ jobs:
         
           sudo cp /home/adaptrix/.kube/config ~/.kube/config
           
-          # Fix ownership and permissions
           sudo chown runner:runner ~/.kube/config
           chmod 600 ~/.kube/config
 
