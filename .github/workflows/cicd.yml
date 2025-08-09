@@ -8,7 +8,7 @@ permissions:
   packages: write
 
 env:
-  IMAGE: ghcr.io/mozyonee/devops-test:latest
+  IMAGE: ghcr.io/${{ github.repository_owner }}/devops-test:latest
 
 jobs:
   build-and-push:
@@ -25,8 +25,8 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/mozyonee/devops-test:latest
-            ghcr.io/mozyonee/devops-test:${{ github.sha }}
+            ghcr.io/${{ github.repository_owner }}/devops-test:latest
+            ghcr.io/${{ github.repository_owner }}/devops-test:${{ github.sha }}
 
   deploy:
     needs: build-and-push
@@ -53,3 +53,9 @@ jobs:
         run: |
           kubectl -n mustage set image deploy/nest-app nest-app=$IMAGE
           kubectl -n mustage rollout status deploy/nest-app --timeout=180s
+      - name: Debug NGINX Ingress
+        if: failure()
+        run: |
+          kubectl -n ingress-nginx get pods
+          kubectl -n ingress-nginx describe pods
+          kubectl -n ingress-nginx get events --sort-by='.lastTimestamp'
