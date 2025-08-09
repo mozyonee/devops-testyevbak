@@ -36,10 +36,8 @@ jobs:
       - name: Verify cluster connection
         run: |
           mkdir -p ~/.kube
-        
-          sudo cp /home/adaptrix/.kube/config ~/.kube/config
-          
-          sudo chown runner:runner ~/.kube/config
+      
+          kind export kubeconfig --name adaptrix-cluster --kubeconfig ~/.kube/config
           chmod 600 ~/.kube/config
 
           whoami
