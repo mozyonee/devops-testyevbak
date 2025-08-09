@@ -35,6 +35,14 @@ jobs:
       - uses: actions/checkout@v4
       - name: Verify cluster connection
         run: |
+          whoami
+          echo "Home: $HOME"
+          echo "Current working directory: $(pwd)"
+          ls -la ~/.kube/ || echo "No .kube directory"
+          kind get clusters || echo "KIND not found"
+          which kubectl
+
+          kind export kubeconfig --name adaptrix-cluster
           kubectl cluster-info
           kubectl get nodes
       - name: Install NGINX Ingress (if needed1)
